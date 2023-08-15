@@ -2,22 +2,18 @@ N, K = map(int, input().split())
 
 pos = list(input())
 
-hdx = []
-pdx = []
-people= 0 
+check  = [False]*N
+
+people = 0
 
 for i in range(N):
     if pos[i] == 'H':
-        hdx.append(i)
-    else:
-        pdx.append(i)
+        for j in range(i-K, i+K+1):
+            if j < 0: j = 0
+            if j >= N: continue
+            if pos[j] == 'P' and not check[j]:
+                people += 1
+                check[j] = True
+                break
 
-for h in hdx:
-    for j in range(h-K,h+K+1):
-        if j in pdx:
-            idx = pdx.index(j)
-            pdx.pop(idx)
-            people += 1
-            break
-    
 print(people)
